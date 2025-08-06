@@ -6,6 +6,7 @@ import dev.blkd.play.domain.dto.toStringName
 import dev.blkd.play.persistence.entity.MovieEntity
 
 fun MovieEntity.toDto() = MovieDto(
+    id = id,
     title = title,
     duration = duration,
     genre = genre.toGenre(),
@@ -16,6 +17,7 @@ fun MovieEntity.toDto() = MovieDto(
 fun MovieDto.toEntity(): MovieEntity {
     val movieDto = this
     return MovieEntity().apply {
+        this.id = movieDto.id
         this.title = movieDto.title
         this.duration = movieDto.duration
         this.genre = movieDto.genre.toStringName()

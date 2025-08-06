@@ -1,9 +1,11 @@
 package dev.blkd.play.persistence.repository
 
 import dev.blkd.play.domain.dto.MovieDto
+import dev.blkd.play.domain.dto.UpdateMovieDto
 import dev.blkd.play.domain.repository.MovieRepository
 import dev.blkd.play.persistence.crud.CrudMovieEntity
 import dev.blkd.play.persistence.mapper.toDto
+import dev.blkd.play.persistence.mapper.toEntity
 import org.springframework.stereotype.Repository
 import kotlin.jvm.optionals.getOrNull
 
@@ -20,15 +22,26 @@ class MovieRepositoryImpl(
         return crudMovieEntity.findById(id).getOrNull()?.toDto()
     }
 
-    override fun add(movieDto: MovieDto) {
-
+    override fun save(movieDto: MovieDto): MovieDto {
+        val movie = movieDto.toEntity().apply {
+            state = "D"
+        }
+        return crudMovieEntity.save(movie).toDto()
     }
 
     override fun removeById(id: Long) {
 
     }
 
-    override fun updateById(id: Long, movieDto: MovieDto) {
+    override fun updateById(id: Long, updateMovieDto: UpdateMovieDto): MovieDto? {
+       val movie = crudMovieEntity.findById(id).getOrNull()?.apply {
+           title = updateMovieDto.title
+           releaseYear = updateMovieDto.releaseYear
+           classification = updateMovieDto.rating
+       }
 
+        if (movie == null) return null
+
+        return crudMovieEntity.save(movie).toDto()
     }
 }
