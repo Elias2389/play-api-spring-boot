@@ -27,6 +27,10 @@ dependencies {
 	developmentOnly("org.springframework.boot:spring-boot-docker-compose")
 	runtimeOnly("org.postgresql:postgresql")
 
+	// LangChain4j
+	implementation("dev.langchain4j:langchain4j-open-ai-spring-boot-starter:1.0.0-beta1")
+	implementation("dev.langchain4j:langchain4j-spring-boot-starter:1.0.0-beta1")
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
