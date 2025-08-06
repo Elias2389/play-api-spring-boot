@@ -2,6 +2,8 @@ package dev.blkd.play.persistence.repository
 
 import dev.blkd.play.domain.dto.MovieDto
 import dev.blkd.play.domain.dto.UpdateMovieDto
+import dev.blkd.play.domain.exception.MovieAlreadyExisteException
+import dev.blkd.play.domain.exception.MovieNotExistException
 import dev.blkd.play.domain.repository.MovieRepository
 import dev.blkd.play.persistence.crud.CrudMovieEntity
 import dev.blkd.play.persistence.mapper.toDto
@@ -23,6 +25,10 @@ class MovieRepositoryImpl(
     }
 
     override fun save(movieDto: MovieDto): MovieDto {
+        if (crudMovieEntity.findFirstByTitle(movieDto.title) != null) {
+            throw MovieAlreadyExisteException(movieDto.title)
+        }
+
         val movie = movieDto.toEntity().apply {
             state = "D"
         }
@@ -34,6 +40,10 @@ class MovieRepositoryImpl(
     }
 
     override fun updateById(id: Long, updateMovieDto: UpdateMovieDto): MovieDto? {
+        if (crudMovieEntity.findFirstByTitle(updateMovieDto.title) != null) {
+            throw MovieNotExistException(updateMovieDto.title)
+        }
+
        val movie = crudMovieEntity.findById(id).getOrNull()?.apply {
            title = updateMovieDto.title
            releaseYear = updateMovieDto.releaseYear

@@ -5,4 +5,6 @@ import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface CrudMovieEntity: CrudRepository<MovieEntity, Long>
+interface CrudMovieEntity: CrudRepository<MovieEntity, Long> {
+    fun findFirstByTitle(title: String): MovieEntity?
+}

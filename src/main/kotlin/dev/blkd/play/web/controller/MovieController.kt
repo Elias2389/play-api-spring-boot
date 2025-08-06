@@ -22,7 +22,7 @@ class MovieController(
     private val aiService: PlayService
 ) {
 
-    @PostMapping("/")
+    @PostMapping("")
     fun add(
         @RequestBody movieDto: MovieDto
     ): ResponseEntity<MovieDto> {
@@ -41,7 +41,7 @@ class MovieController(
         )
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     fun getAll(): List<MovieDto> {
         return movieService.getAll()
     }
