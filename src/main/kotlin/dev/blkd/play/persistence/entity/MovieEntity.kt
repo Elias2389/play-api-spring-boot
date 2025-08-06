@@ -9,20 +9,26 @@ import java.math.BigDecimal
 import java.time.LocalDate
 
 @Entity(name = "play_movies")
-class MovieEntity(
+class MovieEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null,
+    var id: Long? = null
+
     @Column(unique = true, nullable = false, length = 150)
-    var title: String,
+    var title: String = ""
+
     @Column(nullable = false, precision = 3)
-    var duration: Int,
+    var duration: Int = 0
+
     @Column(nullable = false, length = 40)
-    var genre: String,
+    var genre: String = ""
+
     @Column(name = "release_year")
-    var releaseYear: LocalDate,
+    var releaseYear: LocalDate? = null
+
     @Column(precision = 3, scale = 2)
-    var classification: BigDecimal,
+    var classification: BigDecimal? = null
+
     @Column(nullable = false, length = 1)
-    var state: String
-)
+    var state: String = ""
+}
