@@ -25,7 +25,7 @@ class MovieRepositoryImpl(
     }
 
     override fun save(movieDto: MovieDto): MovieDto {
-        if (crudMovieEntity.findFirstByTitle(movieDto.title) != null) {
+        if (crudMovieEntity.findFirstByTitle(movieDto.title) == null) {
             throw MovieAlreadyExisteException(movieDto.title)
         }
 
@@ -40,7 +40,7 @@ class MovieRepositoryImpl(
     }
 
     override fun updateById(id: Long, updateMovieDto: UpdateMovieDto): MovieDto? {
-        if (crudMovieEntity.findFirstByTitle(updateMovieDto.title) != null) {
+        if (crudMovieEntity.findFirstByTitle(updateMovieDto.title) == null) {
             throw MovieNotExistException(updateMovieDto.title)
         }
 
